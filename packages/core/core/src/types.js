@@ -1,19 +1,18 @@
 // @flow strict-local
 
 import type {
-  AssetGroup,
+  AssetRequest,
   BundleGroup,
-  Dependency,
   Environment,
   File,
   FilePath,
   Stats,
-  Target,
-  TransformerRequest
+  Target
 } from '@parcel/types';
 
 import type Asset from './Asset';
 import type AssetGraph from './AssetGraph';
+import type Dependency from './Dependency';
 
 export type NodeId = string;
 
@@ -45,26 +44,22 @@ export type DependencyNode = {|
 export type FileNode = {|id: string, +type: 'file', value: File|};
 export type RootNode = {|id: string, +type: 'root', value: string | null|};
 
-export type TransformerRequestNode = {|
-  id: string,
-  +type: 'transformer_request',
-  value: TransformerRequest
-|};
 export type AssetGroupNode = {|
   id: string,
   +type: 'asset_group',
-  value: AssetGroup
+  value: AssetRequest
 |};
 
-export type OldAssetGraphNode =
-  | AssetNode
-  | AssetReferenceNode
-  | DependencyNode
-  | FileNode
-  | RootNode
-  | TransformerRequestNode
-  | BundleGroupNode
-  | BundleReferenceNode;
+export type DepPathRequestNode = {|
+  id: string,
+  +type: 'dep_path_request',
+  value: Dependency
+|};
+export type AssetRequestNode = {|
+  id: string,
+  +type: 'asset_request',
+  value: AssetRequest
+|};
 
 export type AssetGraphNode =
   | AssetGroupNode
@@ -74,6 +69,10 @@ export type AssetGraphNode =
   | RootNode
   | BundleGroupNode
   | BundleReferenceNode;
+
+export type RequestGraphNode = RequestNode | FileNode;
+export type RequestNode = DepPathRequestNode | AssetRequestNode;
+export type RequestResult = CacheEntry | AssetRequest | null;
 
 export interface BundleReference {
   +id: string;

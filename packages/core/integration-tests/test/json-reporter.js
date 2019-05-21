@@ -19,6 +19,7 @@ describe('json reporter', () => {
     let i = 0;
     // $FlowFixMe
     console.log = function log(msg) {
+      console.log('MSG', msg);
       let parsed = JSON.parse(msg);
       if (i === 0) {
         assert.deepEqual(parsed, {type: 'buildStart'});

@@ -242,7 +242,7 @@ export default class Parcel {
           this.#watchEvents.emit({error: err});
           return;
         }
-
+        // console.log('DETECTED CHANGES', events);
         this.#assetGraphBuilder.respondToFSEvents(events);
         if (this.#assetGraphBuilder.isInvalid()) {
           try {

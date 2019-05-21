@@ -152,7 +152,7 @@ describe('server', function() {
     subscription = await b.watch();
     await getNextBuild(b);
 
-    await sleep(10000);
+    await sleep(4000);
     await fs.writeFile(path.join(inputDir, 'local.js'), 'syntax\\error');
 
     // Await the second build failing (which means resolving with
